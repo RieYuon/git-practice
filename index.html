@@ -3,36 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title>MindAR</title>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-three.prod.js"></script>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
   </head>
   <body style="margin:0; overflow:hidden;">
-    <div id="container" style="width:100vw; height:100vh;"></div>
-    <script>
-      const start = async () => {
-        const mindarThree = new MINDAR.IMAGE.MindARThree({
-          container: document.querySelector("#container"),
-          imageTargetSrc: "targets.mind",
-        });
-
-        const { renderer, scene, camera } = mindarThree;
-
-        const texture = new THREE.TextureLoader().load("IMG_3416.png");
-        const geometry = new THREE.PlaneGeometry(1, 1);
-        const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-        const plane = new THREE.Mesh(geometry, material);
-
-        const anchor = mindarThree.addAnchor(0);
-        anchor.group.add(plane);
-
-        await mindarThree.start();
-        renderer.setAnimationLoop(() => {
-          renderer.render(scene, camera);
-        });
-      };
-
-      start();
-    </script>
+    <a-scene
+      mindar-image="imageTargetSrc: ./targets.mind"
+      color-space="sRGB"
+      embedded
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <img id="myImage" src="./IMG_3416.png">
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-image src="#myImage" position="0 0 0" height="1" width="1"></a-image>
+      </a-entity>
+    </a-scene>
   </body>
 </html>
