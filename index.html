@@ -2,11 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>MindAR</title>
+    <title>キャラクターAR</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
   </head>
-  <body style="margin:0; overflow:hidden;">
+  <body>
     <a-scene
       mindar-image="imageTargetSrc: ./targets.mind"
       color-space="sRGB"
@@ -14,11 +17,17 @@
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <img id="myImage" src="./IMG_3416.png">
+        <img id="character" src="./IMG_1200.png">
       </a-assets>
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-image src="#myImage" position="0 0 0" height="1" width="1"></a-image>
+        <a-image
+          src="#character"
+          position="0 0 0"
+          height="1.5"
+          width="1"
+          transparent="true">
+        </a-image>
       </a-entity>
     </a-scene>
   </body>
